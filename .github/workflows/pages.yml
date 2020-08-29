@@ -15,9 +15,9 @@ jobs:
           persist-credentials: false
 
       - name: Checkout submodules
-         uses: textbook/git-checkout-submodule-action@master
-         with:
-           remote: true
+        uses: textbook/git-checkout-submodule-action@2.1.1
+        with:
+          remote: true
 
       - name: Install Dependencies
         run: npm install
