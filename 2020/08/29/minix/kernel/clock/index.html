@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>Minix Clock | DotCircle's Blog</title><meta name="generator" content="Hexo 5.1.1"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Minix Clock</h1><a id="logo" href="/.">DotCircle's Blog</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Minix Clock</h1><div class="post-meta"><a href="/2020/08/29/minix/kernel/clock/#comments" class="comment-count"></a><p><span class="date">Aug 29, 2020</span><span><a href="/categories/%E5%AD%A6%E4%B9%A0-Minix/" class="category">学习 Minix</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h2 id="Clock"><a href="#Clock" class="headerlink" title="Clock"></a>Clock</h2><h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><p>| file | brief description |<br>|:— |:— |:— |<br>| clock.h | just some function declaration |<br>| clock.c | timers interrupt handler, load statistics update, functions to get statistics about times and set time |<br>| lib/libtimers/timers_exp.c | expire a <code>minix_timer_t</code> linked list |<br>| lib/libtimers/timers_clr.c | clear a minix timer in a linked list |<br>| lib/libtimers/timers_set.c | add a minix timer to a linked list |</p>
+<h3 id="types"><a href="#types" class="headerlink" title="types"></a>types</h3><table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">where</th>
+<th align="left">brief description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>minix_timer_t</code></td>
+<td align="left">minix/timer.h</td>
+<td align="left">timer with a callback, a sorted linked list</td>
+</tr>
+<tr>
+<td align="left"><code>tmr_func_t</code></td>
+<td align="left">minix/timer.h</td>
+<td align="left">timer callback function type, <code>void (*)(int arg)</code></td>
+</tr>
+<tr>
+<td align="left"><code>struct kclockinfo</code></td>
+<td align="left">type.h</td>
+<td align="left">clock information</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kclockinfo</span> &#123;</span></span><br><span class="line">  <span class="keyword">time_t</span> boottime;      <span class="comment">/* number of seconds since UNIX epoch */</span></span><br><span class="line">  <span class="keyword">clock_t</span> uptime;       <span class="comment">/* number of clock ticks since system boot */</span></span><br><span class="line">  <span class="keyword">uint32_t</span> _rsvd1;      <span class="comment">/* reserved for 64-bit uptime */</span></span><br><span class="line">  <span class="keyword">clock_t</span> realtime;     <span class="comment">/* real time in clock ticks since boot */</span></span><br><span class="line">  <span class="keyword">uint32_t</span> _rsvd2;      <span class="comment">/* reserved for 64-bit real time */</span></span><br><span class="line">  <span class="keyword">uint32_t</span> hz;          <span class="comment">/* clock frequency in ticks per second */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="variables"><a href="#variables" class="headerlink" title="variables"></a>variables</h3><table>
+<thead>
+<tr>
+<th align="left">variable</th>
+<th align="left">where</th>
+<th align="left">brief description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>kclockinfo</code></td>
+<td align="left">glo.h</td>
+<td align="left">global clock information</td>
+</tr>
+<tr>
+<td align="left"><code>kloadinfo</code> aka <code>loadinfo</code></td>
+<td align="left">glo.h</td>
+<td align="left">status of load average</td>
+</tr>
+</tbody></table>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><table>
+<thead>
+<tr>
+<th align="left">function</th>
+<th align="left">prototype</th>
+<th align="left">where</th>
+<th align="left">export</th>
+<th align="left">brief description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="#timer-int-handler"><em>timer_int_handler</em></a></td>
+<td align="left"><code>int (*)(void)</code></td>
+<td align="left">clock.c</td>
+<td align="left">true</td>
+<td align="left">handler of timer interrupt</td>
+</tr>
+<tr>
+<td align="left"><a href="#load-update"><em>load_update</em></a></td>
+<td align="left"><code>void(*)(void)</code></td>
+<td align="left">clock.c</td>
+<td align="left">false</td>
+<td align="left">update load information in <code>kloadinfo</code>,</td>
+</tr>
+</tbody></table>
+<pre><code>                                                        basicly number of ready process at this moment |</code></pre>
+<h4 id="timer-int-handler"><a href="#timer-int-handler" class="headerlink" title="timer_int_handler"></a>timer_int_handler</h4><p><a target="_blank" rel="noopener" href="https://github.com/Stichting-MINIX-Research-Foundation/minix/blob/master/minix/kernel/clock.c#L70">minix timer_int_handler</a></p>
+<p>The timer interrupt handler, and <code>timer_int_handler()</code> called from <code>lapic_timer_int_handler</code> which defined as</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;** arch&#x2F;i386&#x2F;apic_asm.S *&#x2F;</span><br><span class="line">&#x2F;* apic timer tick handlers *&#x2F;</span><br><span class="line">ENTRY(lapic_timer_int_handler)</span><br><span class="line">    lapic_intr(_C_LABEL(timer_int_handler))</span><br></pre></td></tr></table></figure>
+
+<p><code>lapic_timer_int_handler</code> is handler of <strong>APIC_TIMER_INT_VECTOR</strong> interrupt registered in <code>apic_idt_init()</code> function<br>when kernel boot.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** arch/i386/apic.c */</span></span><br><span class="line"><span class="comment">/* Build descriptors for interrupt gates in IDT. */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">apic_idt_init</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> reset)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    is_bsp = is_boot_apic(apicid());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* configure the timer interupt handler */</span></span><br><span class="line">    <span class="keyword">if</span> (is_bsp) &#123;</span><br><span class="line">        BOOT_VERBOSE(<span class="built_in">printf</span>(<span class="string">&quot;Initiating APIC timer handler\n&quot;</span>));</span><br><span class="line">        <span class="comment">/* register the timer interrupt handler for this CPU */</span></span><br><span class="line">        int_gate_idt(APIC_TIMER_INT_VECTOR, (vir_bytes) lapic_timer_int_handler,</span><br><span class="line">                PRESENT | INT_GATE_TYPE | (INTR_PRIVILEGE &lt;&lt; DPL_SHIFT));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This handler increase a user tick of process of current processor and<br>decrease <strong>virtual timer</strong> and <strong>profile timer</strong> of the process, if these timer expire after decreasing,<br>raise corresponding signal to the process.</p>
+<p>The above processes also aply to <strong>bill process</strong> of current processor if this process is <strong>BILLABLE</strong>.</p>
+<p>If current processor is bootstraping processor, this handler will check <strong>clock_timer</strong> whether has expired,<br>when true expire the timers. It also increase <code>kclockinfo.realtime</code> when current processor is bootstraping processor.</p>
+<h4 id="load-update"><a href="#load-update" class="headerlink" title="load_update"></a>load_update</h4><p><a target="_blank" rel="noopener" href="https://github.com/Stichting-MINIX-Research-Foundation/minix/blob/master/minix/kernel/clock.c#L260">minix load_update</a></p>
+<p>store how many process is ready at this moment into <code>kloadinfo</code>, this information has history, keep a list of load at<br>different moment(the interval may be very small).</p>
+</div><div class="post-copyright"><blockquote><p>原文作者: DotCircle</p><p>原文链接: <a href="http://yoursite.com/2020/08/29/minix/kernel/clock/">http://yoursite.com/2020/08/29/minix/kernel/clock/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/minix/">minix</a><a href="/tags/kernel/">kernel</a><a href="/tags/clock/">clock</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2020/08/29/hello-world/" class="pre">Hello World</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Clock"><span class="toc-text">Clock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#files"><span class="toc-text">files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#types"><span class="toc-text">types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#variables"><span class="toc-text">variables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-text">API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#timer-int-handler"><span class="toc-text">timer_int_handler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-update"><span class="toc-text">load_update</span></a></li></ol></li></ol></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/29/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/29/minix/kernel/clock/">Minix Clock</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0-Minix/">学习 Minix</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/minix/" style="font-size: 15px;">minix</a> <a href="/tags/kernel/" style="font-size: 15px;">kernel</a> <a href="/tags/clock/" style="font-size: 15px;">clock</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">DotCircle.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a target="_blank" rel="noopener" href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script></body></html>
