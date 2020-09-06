@@ -11,7 +11,7 @@ categories: [学习 Minix]
 
 ### files
 | file | brief description |
-|:--- |:--- |:--- |
+|:--- |:--- |
 | clock.h | just some function declaration |
 | clock.c | timers interrupt handler, load statistics update, functions to get statistics about times and set time |
 | lib/libtimers/timers_exp.c | expire a `minix_timer_t` linked list |

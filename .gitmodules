@@ -1,3 +1,6 @@
 [submodule "themes/BlueLake"]
 	path = themes/BlueLake
 	url = https://github.com/chaooo/hexo-theme-BlueLake.git
+[submodule "themes/slame"]
+	path = themes/slame
+	url = https://github.com/analyman/slame.git
