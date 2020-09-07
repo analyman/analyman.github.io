@@ -47,10 +47,10 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
   enable: false
   preprocess: true
@@ -70,6 +70,9 @@ index_generator:
 default_category: uncategorized
 category_map:
 tag_map:
+
+# markdown-it
+markdown: "default"
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
@@ -104,3 +107,4 @@ theme: slame
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
