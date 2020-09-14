@@ -1,0 +1,46 @@
+/** dimension */
+/** footer */
+.footer-container {
+  margin-top: 0.8em;
+  padding: 0.7em 0.4em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.footer-container .beian a, .footer-container .beian a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.goto-top {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 20px;
+  height: 20px;
+  z-index: 999;
+  text-align: center;
+}
+.goto-top a {
+  width: 100%;
+  height: 100%;
+  padding: 0.2em;
+  text-decoration: none;
+  color: black;
+}
+
+/** FIXME */
+@keyframes fadeout {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.goto-top.hide {
+  display: none;
+  animation-name: fadeout 1s forwards;
+}

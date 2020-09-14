@@ -1,0 +1,71 @@
+/** dimension */
+/** reusable */
+/** colors */
+/** sidebar */
+/** default layout (desktop) */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  margin: 0em 0em 0em 1em;
+  padding: 0.8em;
+  align-items: flex-start;
+}
+.sidebar .sidebar-common {
+  order: 1;
+  margin: 0em;
+  padding: 0.5em;
+}
+.sidebar .sidebar-common .sidebar-common-title {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: large;
+  margin-bottom: 0.2em;
+  padding: 0.15em;
+}
+.sidebar .sidebar-common .sidebar-common-items {
+  padding-left: 0.8em;
+  list-style: decimal;
+  font-size: medium;
+  font-family: constantia;
+}
+.sidebar .sidebar-common .sidebar-common-items li > a {
+  text-decoration: none;
+  color: #0000ee;
+}
+.sidebar .sidebar-common .show {
+  display: none;
+}
+.sidebar .sidebar-common .hide {
+  display: inline;
+}
+.sidebar .sidebar-common .click-show .show {
+  display: inline;
+}
+.sidebar .sidebar-common .click-show .hide {
+  display: none;
+}
+.sidebar .sidebar-common .sidebar-common-items {
+  display: none;
+}
+.sidebar .sidebar-common .click-show + .sidebar-common-items {
+  display: block;
+}
+.sidebar .sidebar-tags {
+  order: 1;
+  margin: 0em 0em 1em 0em;
+}
+.sidebar .sidebar-categories {
+  order: 2;
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    margin: 0em 0em 1em 0em;
+  }
+}

@@ -6,8 +6,18 @@
   list-style: none;
   box-sizing: border-box;
   width: 100%;
-  padding: 1em 1em;
+  padding: 0em 0em 0.1em 0em;
   align-content: space-around;
+  background-color: #db3236;
+}
+.top-bar li .text {
+  display: none;
+}
+.top-bar li:hover .text {
+  display: inline;
+}
+.top-bar li:hover .icon {
+  display: none;
 }
 .top-bar li {
   flex-basis: 1em;
@@ -16,9 +26,15 @@
   margin: 0em 0.5em;
   text-align: center;
   border-radius: 0.3em;
-  background-color: rgba(100, 150, 150, 0.3);
 }
 .top-bar li > a, .top-bar li > a:active, .top-bar li > a:link, .top-bar li > a:hover, .top-bar li > a:visited {
+  width: 100%;
   text-decoration: none;
-  color: #193219;
+  color: #fafafa;
+}
+.top-bar > li.active {
+  background-color: #fafafa;
+}
+.top-bar > li.active > a, .top-bar > li.active > a:active, .top-bar > li.active > a:link, .top-bar > li.active > a:hover, .top-bar > li.active > a:visited {
+  color: #db3236;
 }

@@ -1,1 +1,76 @@
+/** colors */
+/** reusable */
 /** index page */
+.post {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1em;
+  margin-bottom: 0.8em;
+  border-radius: 0.4em;
+  background-color: #f0f0f0;
+}
+.post a {
+  text-decoration: none;
+}
+.post .post-title {
+  font-size: large;
+  margin-bottom: 0.6em;
+}
+.post .post-title a, .post .post-title a:visited {
+  color: black;
+}
+.post .post-title a {
+  margin-left: 1.2em;
+}
+.post .post-date {
+  font-size: small;
+  margin-bottom: 0.3em;
+}
+.post .post-date .date {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.post .post-date .date a, .post .post-date .date a:visited {
+  color: #141414;
+}
+.post .post-date .date span {
+  margin-left: 0.4em;
+}
+.post .post-date .categories {
+  margin-left: 1em;
+}
+.post .post-date .categories i {
+  margin-right: 0.2em;
+}
+.post .post-date .categories a, .post .post-date .categories a:visited {
+  color: #282828;
+}
+.post .post-content {
+  margin: 0em 0.4em 0.3em 0.4em;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.post .post-readmore {
+  display: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.post .post-readmore a, .post .post-readmore a:visited {
+  color: black;
+}
+
+.post:last-child {
+  margin-bottom: 0em;
+}

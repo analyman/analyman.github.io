@@ -1,0 +1,77 @@
+/** colors */
+/** dimension */
+/** base layout */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-content: space-around;
+  margin: 0px;
+  min-height: 100%;
+}
+body > div {
+  width: 100%;
+}
+
+/** default layout (desktop) */
+.body-container {
+  background-color: #f1f3f4;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 12%;
+  padding-right: 12%;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+.body-container .content {
+  order: 1;
+  box-sizing: border-box;
+  width: 80%;
+  min-height: 80vh;
+}
+.body-container .sidebar {
+  order: 2;
+  box-sizing: border-box;
+  width: 20%;
+}
+.body-container .content, .body-container .sidebar {
+  background-color: white;
+}
+
+/** adjust margin width */
+@media (max-width: 1300px) {
+  .body-container {
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+}
+@media (max-width: 1000px) {
+  .body-container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+@media (max-width: 800px) {
+  .body-container {
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+}
+/** telephone layout */
+@media (max-width: 600px) {
+  .body-container {
+    padding-left: 1em;
+    padding-right: 1em;
+    flex-direction: column;
+  }
+  .body-container .content {
+    order: 2;
+    width: 100%;
+    min-height: 60vh;
+  }
+  .body-container .sidebar {
+    order: 1;
+    width: 100%;
+  }
+}
