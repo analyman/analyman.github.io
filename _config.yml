@@ -108,3 +108,9 @@ theme: slame
 deploy:
   type: ''
 
+# beian
+beian:
+    enable: true
+    link: https://beian.miit.gov.cn
+    icp: "闽ICP备2020017251号-1"
+
