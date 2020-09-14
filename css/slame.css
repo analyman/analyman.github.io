@@ -368,6 +368,7 @@ body > div {
 }
 /** footer */
 .footer-container {
+  box-sizing: border-box;
   margin-top: 0.8em;
   padding: 0.7em 0.4em;
   width: 100%;
