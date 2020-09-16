@@ -114,3 +114,7 @@ beian:
     link: https://beian.miit.gov.cn
     icp: "闽ICP备2020017251号-1"
 
+# github
+github:
+    url: https://github.com/analyman
+

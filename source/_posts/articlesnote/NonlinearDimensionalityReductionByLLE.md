@@ -26,3 +26,16 @@ categories: [笔记]
 
 $$\epsilon(W) = \sum\limits_i\left|\vec{X_i} - \sum_jW_{ij}\vec{X_j}\right|^2$$
 
+<div>
+<span>hello</span>
+</div>
+<script type="text/tikz">
+\begin{tikzpicture}
+\draw[dotted]
+(0,0) node {1st node} --
+(1,1) node {2nd node} --
+(0,3) node {3rd node} --
+cycle;
+\end{tikzpicture}
+</script>
+
