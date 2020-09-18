@@ -1,5 +1,5 @@
-/** reusable */
 /** colors */
+/** reusable */
 /** post */
 .content {
   padding: 0.8em 1em;
@@ -48,6 +48,26 @@
   height: 1.5pt;
   background-color: black;
   margin: 0.3em 0em;
+}
+.content .markdown-body h1, .content .markdown-body h2, .content .markdown-body h3, .content .markdown-body h4, .content .markdown-body h5, .content .markdown-body h6 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.content .markdown-body h1 .hide, .content .markdown-body h2 .hide, .content .markdown-body h3 .hide, .content .markdown-body h4 .hide, .content .markdown-body h5 .hide, .content .markdown-body h6 .hide {
+  display: none;
+}
+.content .markdown-body h1 .show, .content .markdown-body h2 .show, .content .markdown-body h3 .show, .content .markdown-body h4 .show, .content .markdown-body h5 .show, .content .markdown-body h6 .show {
+  display: inline;
+}
+.content .markdown-body h1.hide .hide, .content .markdown-body h2.hide .hide, .content .markdown-body h3.hide .hide, .content .markdown-body h4.hide .hide, .content .markdown-body h5.hide .hide, .content .markdown-body h6.hide .hide {
+  display: inline;
+}
+.content .markdown-body h1.hide .show, .content .markdown-body h2.hide .show, .content .markdown-body h3.hide .show, .content .markdown-body h4.hide .show, .content .markdown-body h5.hide .show, .content .markdown-body h6.hide .show {
+  display: none;
+}
+.content .markdown-body .--hide-- {
+  display: none !important;
 }
 
 .prev-next-line {

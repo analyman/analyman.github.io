@@ -1,0 +1,76 @@
+/** colors */
+/** reusable */
+/** bibliography style */
+.bibliography {
+  margin-top: 1.8em;
+  padding: 0.7em;
+  border-radius: 0.3em;
+  background-color: #f3f3f3;
+}
+.bibliography .bibliography-title {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-left: 0.3em;
+  font-size: larger;
+  font-weight: bold;
+  font-family: rockwell;
+}
+.bibliography .bibliography-divide-line {
+  width: 100%;
+  height: 2pt;
+  background-color: black;
+  margin: 0.5em 0em 0.9em 0em;
+}
+.bibliography .bibliography-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0.5em;
+}
+.bibliography .bibliography-list .bibliography-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.bibliography .bibliography-list .bibliography-item .bibliography-order {
+  margin-right: 0.35em;
+}
+.bibliography .bibliography-list .bibliography-item .bibliography-order:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .authors {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-right: 0.35em;
+}
+.bibliography .bibliography-list .bibliography-item .authors:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .authors .author:not(:last-child) {
+  margin-right: 0.18em;
+}
+.bibliography .bibliography-list .bibliography-item .authors .author:not(:last-child):after {
+  content: ",";
+}
+.bibliography .bibliography-list .bibliography-item .title {
+  margin-right: 0.35em;
+  font-style: italic;
+}
+.bibliography .bibliography-list .bibliography-item .title:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .publisher {
+  margin-right: 0.35em;
+}
+.bibliography .bibliography-list .bibliography-item .publisher:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .year:after {
+  content: ".";
+}

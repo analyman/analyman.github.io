@@ -232,6 +232,26 @@ body > div {
   background-color: black;
   margin: 0.3em 0em;
 }
+.content .markdown-body h1, .content .markdown-body h2, .content .markdown-body h3, .content .markdown-body h4, .content .markdown-body h5, .content .markdown-body h6 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.content .markdown-body h1 .hide, .content .markdown-body h2 .hide, .content .markdown-body h3 .hide, .content .markdown-body h4 .hide, .content .markdown-body h5 .hide, .content .markdown-body h6 .hide {
+  display: none;
+}
+.content .markdown-body h1 .show, .content .markdown-body h2 .show, .content .markdown-body h3 .show, .content .markdown-body h4 .show, .content .markdown-body h5 .show, .content .markdown-body h6 .show {
+  display: inline;
+}
+.content .markdown-body h1.hide .hide, .content .markdown-body h2.hide .hide, .content .markdown-body h3.hide .hide, .content .markdown-body h4.hide .hide, .content .markdown-body h5.hide .hide, .content .markdown-body h6.hide .hide {
+  display: inline;
+}
+.content .markdown-body h1.hide .show, .content .markdown-body h2.hide .show, .content .markdown-body h3.hide .show, .content .markdown-body h4.hide .show, .content .markdown-body h5.hide .show, .content .markdown-body h6.hide .show {
+  display: none;
+}
+.content .markdown-body .--hide-- {
+  display: none !important;
+}
 
 .prev-next-line {
   width: 100%;
@@ -419,4 +439,181 @@ body > div {
   animation-name: fadeout 1s forwards;
 }
 
-/** slame theme for hexo */
+/** toc styles */
+#post-toc {
+  position: fixed;
+  padding: 1em;
+  background-color: #6a737d;
+  box-sizing: border-box;
+  font-family: rockwell;
+  /** default layout */
+  min-width: 28%;
+  min-height: 60%;
+  left: 0em;
+  top: 20%;
+  border-radius: 0em 1em 1em 0em;
+  /** telephone */
+}
+#post-toc .toc-name {
+  text-align: center;
+  font-size: larger;
+  margin-bottom: 0.8em;
+  color: #4285f4;
+}
+@media (max-width: 600px) {
+  #post-toc {
+    width: 80%;
+    min-height: 50%;
+    left: 10%;
+    top: 0em;
+    border-radius: 0em 0em 1em 1em;
+  }
+}
+#post-toc a {
+  text-decoration: none;
+  color: #0000ee;
+}
+#post-toc .toc-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#post-toc .toc-title .toc-controller {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#post-toc .toc-title .toc-controller > .toc-hide {
+  display: none;
+}
+#post-toc .toc-title .toc-controller.hide-the-toc .toc-hide {
+  display: inline;
+}
+#post-toc .toc-title .toc-controller.hide-the-toc .toc-show {
+  display: none;
+}
+#post-toc .toc-number {
+  margin-right: 0.2em;
+}
+#post-toc .toc-number:after {
+  content: ".";
+}
+#post-toc .toc-title + .toc-children {
+  margin-left: 1em;
+}
+#post-toc .toc-children-hide {
+  display: none;
+}
+#post-toc.hide-toc {
+  display: none;
+}
+
+#post-toc-switcher {
+  position: fixed;
+  left: -0.85em;
+  bottom: 50%;
+  width: 2em;
+  height: 2em;
+  border-radius: 1em;
+  background-image: radial-gradient(transparent, #969696);
+  background-color: #4285f4;
+}
+@media (max-width: 600px) {
+  #post-toc-switcher {
+    left: 48%;
+    width: 2em;
+    height: 2em;
+    bottom: -0.9em;
+  }
+}
+
+#post-toc-switcher.hide {
+  display: none;
+}
+#post-toc-switcher.hide:hover {
+  display: block;
+}
+
+#post-toc.toc-in-show + #post-toc-switcher {
+  display: none !important;
+}
+
+/** bibliography style */
+.bibliography {
+  margin-top: 1.8em;
+  padding: 0.7em;
+  border-radius: 0.3em;
+  background-color: #f3f3f3;
+}
+.bibliography .bibliography-title {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-left: 0.3em;
+  font-size: larger;
+  font-weight: bold;
+  font-family: rockwell;
+}
+.bibliography .bibliography-divide-line {
+  width: 100%;
+  height: 2pt;
+  background-color: black;
+  margin: 0.5em 0em 0.9em 0em;
+}
+.bibliography .bibliography-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0.5em;
+}
+.bibliography .bibliography-list .bibliography-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.bibliography .bibliography-list .bibliography-item .bibliography-order {
+  margin-right: 0.35em;
+}
+.bibliography .bibliography-list .bibliography-item .bibliography-order:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .authors {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-right: 0.35em;
+}
+.bibliography .bibliography-list .bibliography-item .authors:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .authors .author:not(:last-child) {
+  margin-right: 0.18em;
+}
+.bibliography .bibliography-list .bibliography-item .authors .author:not(:last-child):after {
+  content: ",";
+}
+.bibliography .bibliography-list .bibliography-item .title {
+  margin-right: 0.35em;
+  font-style: italic;
+}
+.bibliography .bibliography-list .bibliography-item .title:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .publisher {
+  margin-right: 0.35em;
+}
+.bibliography .bibliography-list .bibliography-item .publisher:after {
+  content: ".";
+}
+.bibliography .bibliography-list .bibliography-item .year:after {
+  content: ".";
+}
+
+/** slame theme for hexo ?? */
