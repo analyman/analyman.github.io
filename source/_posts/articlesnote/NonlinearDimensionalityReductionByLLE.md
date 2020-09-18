@@ -19,7 +19,13 @@ categories: [笔记]
 
 ### Feature Selection
 
+xyz
+
+#### XYZZZ
+
 ### Feature Extraction
+
+yzx
 
 
 ## Principle Component Analysis
@@ -38,4 +44,12 @@ $$\epsilon(W) = \sum\limits_i\left|\vec{X_i} - \sum_jW_{ij}\vec{X_j}\right|^2$$
 cycle;
 \end{tikzpicture}
 </script>
+
+{% blockquote David Levithan, Wide Awake %}
+Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.
+{% endblockquote %}
+
+{% bibliography %}
+[Ian Goodfellow, Yoshua Bengio, Aaron Courville], Deep Learning, MIT Press, 2016 
+{% endbibliography %}
 
