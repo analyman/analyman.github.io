@@ -17,10 +17,6 @@ categories: [笔记]
 可以用在诸如噪声消除(Noise reduction), 数据可视化(Data visualization), 
 聚类分析(Cluster analysis), 以及一些分析的中间过程。
 
-### Feature Selection
-
-### Feature Extraction
-
 ## Principle Component Analysis
 
 有一个$n$维线性空间中采样得到的$m$个样本, 记为数据集$X_{(m\times n)}$。
@@ -33,7 +29,7 @@ PCA 在一些领域中有不同的名称, 如在数值分析中叫 **Singular Va
 在物理中被称为 **特征向量分析(Eigenvector Analysis)** 或者 **特征分析(Characteristics Analysis)**,
 还有一些其他学科中也有不同的名称。
 
-### 分析
+### 简略的分析
 
 PCA 被定义为一个正交线性变换$V_{(n\times n)}$, 其将数据变换到一个新的坐标系统。
 设$x_i$为数据集的第$i$个样本即$X$的行向量, $v_j$为正交变换$V$的行向量即新坐标系统的第$j$个基,
@@ -120,15 +116,105 @@ $h_i^T = {w_i\over ||w_i||_2} = {u_i^TA\over \sqrt{p_i}}$, 下面证明$h_i^T$�
 U^TAV = \Sigma \quad\Longleftrightarrow\quad A = U\Sigma V^T
 {% endmathjax %}
 
+
 ### PCA的局限
+
+由于 PCA 是通过线性变换来降低数据的维数, 所以对于非线性的流形生成的数据达不到
+降低数据维数和精简数据的效果。
 
 
 ## Local Linearly Embedding
 
+与PCA相似的, LLE 可以将高维的数据映射到一个低维的空间。
+与PCA不同的是, LLE 可以在某种程度下学习到数据的拓扑结构, 
+将其映射到低维的空间并且保持数据的拓扑结构。
+
+### LLE的示例
+{% slameImage %}
+https://cs.nyu.edu/~roweis/lle/images/swissRoll.gif, Swiss Roll, Swiss Roll
+https://cs.nyu.edu/~roweis/lle/images/twinPeaks.gif, Twin Peaks, Twin Peaks
+https://cs.nyu.edu/~roweis/lle/images/tfiga.gif, LLE translated faces, Tranlated Face
+https://cs.nyu.edu/~roweis/lle/images/faceex1.gif, LLE faces, Faces
+{% endslameImage %}
+
+
+### 拓扑 (Topology)
+
+设$X$是一个集合, $X$的一个子集族$\tau$称为拓扑, 如果满足
++ $X, \emptyset\in\tau$
++ $K$是一个指标集, $\forall i\in K$, 有$A_i\in \tau$, 则$\bigcap\limits_{i\in K}A_i\in\tau$
++ $A, B\in\tau\quad\Longrightarrow\quad A\cup B\in\tau$
+
+记$(X, \tau)$为拓扑空间, $\tau$中的元素称为**开集**
+
+
+#### 连续性
+映射$f: X\mapsto Y$ 在一点$x\in X$处连续, 如果对于$Y$中任意包含$f(x)$的开集$V\in \tau_Y$,
+有$f^{-1}(V)\in \tau_X$。
+
+
+#### 连续映射
+映射$f: X\mapsto Y$对任意$x\in X$都连续, 则$f$都是连续映射
+
+
+#### 同胚映射
+如果映射$f: X\mapsto Y$是一一对应的, 并且$f$及其逆$f^{-1}: Y\mapsto X$都是连续的,
+则称$f$是**同胚映射**, 或者**拓扑变换**。
+
+如果存在$X$和$Y$的同胚映射时, 称$X$和$Y$是同胚的。
+
+
+### 流形 (Manifold)
+
+在数学上, 一个流形是一个拓扑空间其局部地和一个欧几里得空间相似(resembles)。更加具体的
+$n$维流形是一个拓扑空间其任意一点都存在一个领域
+([neighborhood](https://en.wikipedia.org/wiki/Neighbourhood_(mathematics))), 其和一个$n$维欧几里得空间同胚。
+
+例如, 曲线是一个1维的流形、球面是一个2维的流形。
+
+### LLE 算法
+
+设有$N$个$D$维向量空间中的实值向量$\vec X_i$, 其数据从某个光滑的流形进行采样。
+假设有足够的数据, 即该流形被完整及良好的采样。
+
+通过对每一个点选择$K$个最近的邻近点, 并且将该点用$K$个最邻近的点进行线性表示, 如下
+{% mathjax '{"conversion": {"display": true}}' %}
+\vec X_i^\prime = \sum_{j}W_{i,j}\vec X_j
+{% endmathjax %}
+
+此处$\vec X_i^\prime$表示由$K$个$\vec X_i$的最邻近点对$\vec X_i$的近似线性表示。
+并且对于不是$\vec X_i$ $K$-邻近点 的$W_{i,j}$置为$0$。为了得到$W_{i,j}$的值, 可以优化
+Loss 函数
+{% mathjax '{"conversion": {"display": true}}' %}
+\begin{aligned}
+\epsilon(W) &= \sum_i\left|\vec X_i - \vec X_i^\prime\right|^2 \\
+            &= \sum_i\left|\vec X_i - \sum_jW_{i,j}\vec X_j\right|^2
+\end{aligned}
+{% endmathjax %}
+
+对于$W_{i,j}$要求$\sum_{j}W_{i,j} = 1$, 基于以上的$\epsilon(W)$形式,
+这可以保证在数据进行平移、旋转、缩放后还有相同的$W_{i,j}$,
+因为这些操作不会改变各个点之间的相对距离。$W_{i,j}$反应了数据的一些本质的性质
+不会再平移、旋转、缩放下改变。
+
+设LLE 的目标空间维数为$d, d\lt D$, 对每一个$\vec X_i$, 在这个低维的线性空间下
+有$\vec Y_i$与之对应。LLE 所应达到的效果为在新的$d$维空间中,
+保持每一个点都可以都可以利用其邻近的$K$个点根据$W_{i,j}$进行重建, 既有
+{% mathjax '{"conversion": {"display": true}}' %}
+\vec Y_i^\prime = \sum_j W_{i,j}\vec Y_j
+{% endmathjax %}
+
+与之前类似的, 为了求得$\vec Y_j$, 需要对一个 Loss 函数优化, 即
+{% mathjax '{"conversion": {"display": true}}' %}
+\Phi(Y) = \sum\limits_{i}\left|\vec Y_i - \sum_j W_{i, j}\vec Y_j\right|^2
+{% endmathjax %}
+
+由此可以得到对应每个$\vec X_i$在$d$维空间的表示$\vec Y_i$
 
 {% bibliography %}
 [Svante Wold, Kim Esbensen, Paul Geladi], Princial Component Analysis, Elsevier Science Publishers, 1987
 [Wikipedia], Principal Component Analysis
+[Wikipedia], Manifold
 [Sam Roweis, Lawrence Saul], Nonlinearly Dimensionality Reduction by Locally Linear Embedding, Science, 2000
 [Sam Roweis, Lawrence Saul], An Introduction to Locally Linear Embedding
 {% endbibliography %}
