@@ -72,7 +72,11 @@ category_map:
 tag_map:
 
 # markdown-it
-markdown: "default"
+markdown:
+  preset: 'default'
+  render:
+    html: true
+    breaks: false
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
